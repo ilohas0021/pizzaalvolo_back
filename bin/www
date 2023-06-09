@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/**
+ * 프로젝트 루트의 .env 파일을 이용하여 환경변수를 제어한다
+ */
+require('dotenv').config();
 
 /**
  * Module dependencies.
@@ -12,7 +16,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '8080');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
