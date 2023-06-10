@@ -1,0 +1,37 @@
+<html>
+<body>
+<div>
+    <form id="form">
+        <label>
+            <input type="text" name="id">
+        </label>
+        <label>
+            <input type="password" name="pw">
+        </label>
+        <button type="submit">로그인</button>
+    </form>
+</div>
+
+
+<script>
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const payload = new URLSearchParams(formData);
+
+        fetch('/user/login', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: payload,
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+    });
+</script>
+</body>
+</html>
