@@ -8,56 +8,56 @@ const createUser = async (user) => await model['user'].create(user);
 
 /* GET users listing. */
 router.get('/test', function (req, res) {
-    res.render('./test/login.ejs');
+  res.render('./test/login.ejs');
 });
 
 router.post('/login', async (req, res, next) => {
-    const id = req.body.id;
-    const pw = req.body.pw;
+  const id = req.body.id;
+  const pw = req.body.pw;
 
-    let user = await selectUserById(id);
+  let user = await selectUserById(id);
 
-    if (user !== null) {
-        if (user.pw === pw) {
-            res.send(user.sn);
-        } else {
-            res.status(500).send();
-            console.log("pw error");
-        }
+  if (user !== null) {
+    if (user.pw === pw) {
+      res.send(user.sn);
     } else {
-        res.status(500).send();
-        console.log("id error");
+      res.status(500).send();
+      console.log("pw error");
     }
+  } else {
+    res.status(500).send();
+    console.log("id error");
+  }
 });
 
-router.post('/update', async (req, res) => {
-    const sn = req.body.sn;
-    const address = req.body.address;
+router.post('/update', async function (req, res, next) {
+  const sn = req.body.sn;
+  const address = req.body.address;
 
-    const user = await updateUserBySn(sn, address);
-    res.send(user);
+  await updateUserBySn(sn, address);
+  res.send();
 });
 
 router.get('/signup', async (req, res) => {
-    res.render('test/signup.ejs');
+  res.render('test/signup.ejs');
 });
 
 router.post('/signup', async (req, res, next) => {
-    const id = req.body.id;
-    const pw = req.body.pw;
-    const name = req.body.name;
-    const authority = req.body.authority;
-    const address = req.body.address;
+  const id = req.body.id;
+  const pw = req.body.pw;
+  const name = req.body.name;
+  const authority = req.body.authority;
+  const address = req.body.address;
 
-    const user = await createUser({
-        id: id,
-        pw: pw,
-        name: name,
-        authority: authority,
-        address: address,
-    })
+  await createUser({
+    id: id,
+    pw: pw,
+    name: name,
+    authority: authority,
+    address: address,
+  })
 
-    res.send(user);
+  res.send();
 
 });
 module.exports = router;
