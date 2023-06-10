@@ -1,0 +1,39 @@
+<html>
+<body>
+<div>
+    <form id="form" name="saveForm" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <label>
+            카테고리
+            <input type="text" name="category">
+        </label>
+        <label>
+            이름
+            <input type="text" name="name">
+        </label>
+        <label>
+            가격
+            <input type="number" name="price">
+        </label>
+        <button type="submit">업로드</button>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const payload = new FormData(form);
+        fetch('/menu', {
+            method: 'POST',
+            headers: {},
+            body: payload,
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+    });
+</script>
+</body>
+</html>

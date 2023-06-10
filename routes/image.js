@@ -6,7 +6,7 @@ const upload = require('../util/imgStorage')
 
 // TODO 삭제 예정
 router.get("/upload", function (req, res){
-    res.render('upload.ejs')
+    res.render('test/upload.ejs')
 })
 
 router.post("/upload", upload.single('image'),async (req, res) => {

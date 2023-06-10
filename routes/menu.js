@@ -7,7 +7,7 @@ const createMenu = async (menu) => await model['menu'].create(menu);
 
 // TODO 삭제 예정
 router.get('/test', function (req, res) {
-    res.render('menuInsert.ejs')
+    res.render('test/menuInsert.ejs')
 });
 
 router.post('/', upload.single('image'),async (req, res) => {
