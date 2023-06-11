@@ -23,7 +23,8 @@ router.post('/', async (req, res) => {
         regdate: new Date(),
         user_sn: user_sn,
         price: price,
-        detail: detail_str
+        detail: detail_str,
+        review: false
     })
 
     for (const d of detail) {
@@ -41,9 +42,9 @@ router.post('/', async (req, res) => {
 
 const selectAllOrder = async (user_sn) => await model['total_order'].findAll({where: {user_sn: user_sn}});
 
-router.get('/', async (req, res) => {
-    let user_sn = req.cookies.user_sn;
-    res.send({order: await selectAllOrder(user_sn)});
+router.get('/:user_sn', async (req, res) => {
+    let user_sn = req.params.user_sn;
+    if (user_sn !== undefined) res.send({order: await selectAllOrder(user_sn)});
 });
 
 module.exports = router;

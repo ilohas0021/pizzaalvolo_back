@@ -26,6 +26,10 @@ module.exports = function(sequelize, DataTypes) {
     detail: {
       type: DataTypes.STRING(100),
       allowNull: false
+    },
+    review: {
+      type: DataTypes.TINYINT,
+      allowNull: false
     }
   }, {
     sequelize,

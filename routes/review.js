@@ -5,19 +5,11 @@ const router = express.Router();
 const createReview = async (review) => await model['review'].create(review);
 const selectAllReviewByMenuId = async (menu_id) => await model['review'].findAll({where: {menu_id: menu_id}});
 
-router.get('/test', function (req, res) {
-    res.render('./test/.ejs');
-});
-
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
-});
-
-
+const updateReviewStateTrue = async (order_id) => await model['total_order'].update({review: true}, {where: {order_id: order_id}});
 const selectAllDetailByOrderId = async (order_id) => await model['detail'].findAll({where: {order_id: order_id}});
 const selectUserBySn = async (sn) => await model['user'].findOne({where: {sn: sn}})
 
-router.post('/review', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const order_id = req.body.order_id;
     const details = await selectAllDetailByOrderId(order_id);
 
@@ -26,6 +18,7 @@ router.post('/review', async (req, res, next) => {
     const info = req.body.info;
     const user = await selectUserBySn(user_sn)
 
+    await updateReviewStateTrue(order_id);
     for (const d of details) {
         await createReview({
             star: star,
@@ -40,8 +33,8 @@ router.post('/review', async (req, res, next) => {
     res.send();
 });
 
-router.get('/review', async (req, res, next) => {
-    const menu_id = req.body.menu_id;
+router.get('/:menu_id', async (req, res, next) => {
+    const menu_id = req.params.menu_id;
     const review = await selectAllReviewByMenuId(menu_id);
     res.send(review);
 });

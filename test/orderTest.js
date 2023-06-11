@@ -2,13 +2,12 @@ const post = {
     user_sn: 1,
     detail: [
         {menu_id: 1, count: 1},
-        {menu_id: 2, count: 1},
-        {menu_id: 3, count: 1}
+        {menu_id: 2, count: 1}
     ]
 };
 
 
-fetch('http://localhost:8080/order', {
+fetch('http://202.31.202.34:443/order', {
     method: 'POST',
     headers: {
         "Content-Type": "application/json",
