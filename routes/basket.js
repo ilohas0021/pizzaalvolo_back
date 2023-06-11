@@ -18,7 +18,7 @@ router.get('/:user_sn', async function (req, res, next) {
             img_url: menu.img_url,
             name: menu.name,
             price: menu.price,
-            menu_id: menu.menu_id,
+            menu_id: menu.id,
         });
     }
 
@@ -28,8 +28,8 @@ router.get('/:user_sn', async function (req, res, next) {
 router.post('/deleteAll', async function (req, res, next) {
     const user_sn = req.body.user_sn;
 
-    const basket = await deleteAllBasketByUserSn(user_sn);
-    res.send(basket);
+    await deleteAllBasketByUserSn(user_sn);
+    res.send();
 });
 
 router.post('/insert', async function (req, res, next) {
@@ -41,7 +41,7 @@ router.post('/insert', async function (req, res, next) {
         user_sn: user_sn,
         menu_id: menu_id,
         count: count,
-    })
+    });
 
     res.send();
 });
