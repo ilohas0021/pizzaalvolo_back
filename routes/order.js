@@ -47,4 +47,49 @@ router.get('/:user_sn', async (req, res) => {
     if (user_sn !== undefined) res.send({order: await selectAllOrder(user_sn)});
 });
 
+
+router.post('/totalCountEachMenu', async (req, res) => {
+    const query = "SELECT menu_id, SUM(count) FROM detail GROUP BY menu_id;"
+    const details = await model['detail'].query(query);
+
+    let result = [];
+
+    for(const d of details) {
+        let menuName = await selectMenuById(d.menu_id).name;
+        let tempJson = { "name": menuName, "cont":d.count }
+        result.push(tempJson);
+    }
+
+    res.send(result);
+});
+
+router.get('/chart', async (req, res) => {
+    const query =
+    "SET sql_mode = '';" +
+    "SELECT" +
+        "CASE DAYOFWEEK(regdate)" +
+            "WHEN 1 THEN '일요일'" +
+            "WHEN 2 THEN '월요일'" +
+            "WHEN 3 THEN '화요일'" +
+            "WHEN 4 THEN '수요일'" +
+            "WHEN 5 THEN '목요일'" +
+            "WHEN 6 THEN '금요일'" +
+            "WHEN 7 THEN '토요일'" +
+        "END AS day_of_week," +
+        "DATE_FORMAT(regdate, '%Y-%m-%d') AS date," +
+        "SUM(price) AS total_sales" +
+    "FROM" +
+        "pizza_alvolo.total_order" +
+    "WHERE" +
+        "regdate >= CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY + INTERVAL 0 DAY" +
+        "AND regdate < CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY + INTERVAL 7 DAY" +
+    "GROUP BY" +
+        "DATE_FORMAT(regdate, '%Y-%m-%d')" +
+    "ORDER BY" +
+        "regdate ASC;";
+
+    const chart = await model['total_order'].query(query);
+    res.send(chart);
+});
+
 module.exports = router;
