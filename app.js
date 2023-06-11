@@ -11,6 +11,7 @@ const session = require('express-session');
  *
  */
 const indexRouter = require('./routes/index');
+const basketRouter = require('./routes/basket')
 const imageRouter = require('./routes/image');
 const menuRouter = require('./routes/menu');
 const orderRouter = require('./routes/order');
@@ -49,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Set Router and Prefix
  */
 app.use('/', indexRouter);
+app.use('/basket', basketRouter);
 app.use('/image', imageRouter);
 app.use('/menu', menuRouter);
 app.use('/order', orderRouter);
