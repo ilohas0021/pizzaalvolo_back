@@ -3,18 +3,20 @@
 <div>
     <form id="form" name="saveForm" enctype="multipart/form-data">
         <input type="file" name="image">
-        <label>
+        <div>
             카테고리
-            <input type="text" name="category">
-        </label>
-        <label>
+            <input type="radio" name="category" value="장인">장인
+            <input type="radio" name="category" value="달인">달인
+            <input type="radio" name="category" value="명품">명품
+        </div>
+        <div>
             이름
             <input type="text" name="name">
-        </label>
-        <label>
+        </div>
+        <div>
             가격
             <input type="number" name="price">
-        </label>
+        </div>
         <button type="submit">업로드</button>
     </form>
 </div>

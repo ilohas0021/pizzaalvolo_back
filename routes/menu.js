@@ -14,12 +14,14 @@ router.post('/create', upload.single('image'),async (req, res) => {
     const file = req.file;
     const img_url = process.env.IMG_URL_PREFIX+file.filename;
 
+    let date = new Date();
+    date.setHours(date.getHours() + 9);
     const menu = await createMenu({
         img_url: img_url,
         category: req.body.category,
         name: req.body.name,
         price: req.body.price,
-        regdate: new Date
+        regdate: date
     })
 
     res.send(menu);

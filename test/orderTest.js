@@ -2,7 +2,12 @@ const post = {
     user_sn: 1,
     detail: [
         {menu_id: 1, count: 1},
-        {menu_id: 2, count: 1}
+        {menu_id: 2, count: 1},
+        {menu_id: 2, count: 1},
+        {menu_id: 2, count: 1},
+        {menu_id: 1, count: 1},
+        {menu_id: 1, count: 1},
+        {menu_id: 3, count: 1}
     ]
 };
 

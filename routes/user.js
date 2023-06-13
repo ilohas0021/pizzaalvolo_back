@@ -31,7 +31,7 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-router.post('/update', async function (req, res, next) {
+router.post('/update', async function (req, res) {
   const sn = req.body.user_sn;
   const address = req.body.address;
 
@@ -48,7 +48,7 @@ router.get('/:user_sn', async (req, res) => {
   res.send(await selectUserById(user_sn));
 });
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', async (req, res) => {
   const id = req.body.id;
   const pw = req.body.pw;
   const name = req.body.name;
